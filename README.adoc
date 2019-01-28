@@ -1,0 +1,130 @@
+= Kiali Performance Rest API (a.k.a Kiali Windsock)
+:toc-title:
+:imagesdir: images
+
+image:https://img.shields.io/badge/license-Apache2-blue.svg["Apache 2.0 license", link="LICENSE"]
+
+
+
+== Table of contents
+
+toc::[]
+
+== Description
+
+Kiali Performance REST API Testing (aka Kiali Windsock - https://en.wikipedia.org/wiki/Windsock) was inspired by Fortio (https://github.com/fortio/fortio) and RegPatrol (https://ibmcloud-perf.istio.io/regpatrol/).
+
+
+== How it works
+
+image::windsock-diagram.png[]
+
+
+=== Dependencies needed to deploy on Openshift
+
+[NOTE]
+The following instructions assume that you have access to an OpenShift cluster, that the `oc` command is available on your path and that your current user has cluster permissions. It also assumes that you have Ansible (`ansible-playbook`) on your path
+
+
+[NOTE]
+You will need to deploy Kiali first.
+
+[source,shell]
+----
+# Installing Dependencies Needed on Fedora (Use your distribution package manager [apt, pacman, yum or zypper])
+sudo dnf install ansible python-pip
+
+# Make sure pip is upgraded to the latest
+sudo pip install --upgrade pip
+
+# Install the openshift python client library
+pip install --user openshift
+----
+
+
+== Deploying Dashboard (InfluxDB and Grafana) on Openshift
+
+[NOTE]
+Your openshift cluster will need to have 2 Persistent Storage (one for InfluxDB and other for Grafana Dashboard). 
+
+[NOTE]
+You can use the makefile to deploy with standard variables. The makefile defines some environment variables if they are not exported. **STORAGE** tells size of each persistent storage and it has  **5GI** as standard value, so it will be created two persisent storages.
+
+[NOTE]
+The environment variable **INFLUX_USERNAME** defines InfluxDB username and InfluxDB password is defined in **INFLUX_PASSWORD**
+
+[NOTE]
+You don't need to redeploy your Dashbord everytime, it is recommended to do only one time at 
+
+[source,shell]
+----
+make deploy-dashboard
+----
+
+Also you can use the ansible command:
+
+[source,shell]
+----
+ansible-playbook ansible/dashboard -e storage_size=5Gi -e influx_username=admin -e influx_password=admin
+----
+
+At the end of the script, your going to see the influxdb route and grafana routes:
+
+[source,shell]
+----
+TASK [Print Routes] *********************************************************************************************************
+task path: /home/gbaufake/Redhat/kiali-performance/ansible/dashboard.yml:222
+ok: [localhost] => {}
+
+MSG:
+
+InfluxDB route: influxdb-kiali-windsock-dashboard.openshift.cluster.domain.com and Grafana Route: grafana-kiali-windsock-dashboard.openshift.cluster.domain.com
+
+META: ran handlers
+META: ran handlers
+
+PLAY RECAP ******************************************************************************************************************
+localhost                  : ok=10   changed=8    unreachable=0    failed=0
+----
+
+Store influxDB in **INFLUX_ADDRESS**
+
+=== Importing Grafana Dashboard
+
+All the relevant queries concerning latency (min, max, percentile25, percentile50, percentile75, percentile99), response_size are displayed on link:./dashboard/kiali-winsock-grafana-dashboard.json[Dashboard].
+
+
+Example of Dashboard provided by the file:
+
+image::grafana-dashboard.png[]
+
+== Deploying Windsock
+
+[NOTE]
+Some environment variables are important to Deploying Windsock using Makefile. **KIALI_HOSTNAME** declares the Kiali API endpoint to be tested (eg: https://kiali-istio-system.openshift.com/api/status). **KIALI_USERNAME** declares Kiali username and **KIALI_PASSWORD** declares Kiali password. **TEST_NAME** is used to create a specific namespace on openshift for test. **INFLUX_ADDRESS** is the address located where is located INFLUXDB (if you ran the makefile dashboard target, it is printed as last part of ansible playbook). **INFLUX_USERNAME** is the INFLUXDB username used to access influxdb instance (if you ran the dashboard makefile target, you defined it or you used the default value present on the makefile). **INFLUX_PASSWORD** is the INFLUXDB password used to access influxdb instance (if you ran the dashboard makefile target, you defined it or you used the default value present on the makefile).
+
+
+[NOTE]
+**RATE** it is used tell how many request will be created per second (eg" if you use 1, it is going to be 1 request per second per client). **DURATION** declares the duration of the test in seconds (**IMPORTANT**: if you use **0 for duration, it will run forever**). **NUMBER_OF_USERS** declares the number of Kiali Windsock pods each will be created. Each pod represent a single client quering Kiali endpoint.
+
+
+[source,shell]
+----
+make deploy-performance-test
+----
+
+You can use ansible-playbook command as well:
+
+[source,shell]
+----
+	ansible-playbook ansible/performance_test.yml -e kiali_hostname=kiali-istio-system.openshift.cluster.domain.com/api/status \
+	-e kiali_username=admin \
+	-e kiali_password=admin \
+	-e test_name=test-api-status \
+	-e influx_address=influxdb-kiali-windsock-dashboard.openshift.cluster.domain.com \
+	-e influx_username=admin \
+	-e influx_password=admin \
+	-e rate=1  \
+	-e duration=2000 \
+	-e number_of_users=5  -v
+----
