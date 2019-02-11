@@ -24,9 +24,7 @@ all: docker-build
 
 docker-build:
 	@echo Building the Kiali Windsock Docker image
-	@mkdir -p _output/docker
-	@cp docker/* _output/docker
-	@docker build -t ${DOCKER_NAME}:${DOCKER_TAG} _output/docker
+	@docker build -t ${DOCKER_NAME}:${DOCKER_TAG} docker/windsock
 
 clean:
 	@echo "Cleaning any build artifacts"
