@@ -16,13 +16,13 @@ import (
 func main() {
 	session := os.Getenv("SESSION_ID")
 	routeEnv := os.Getenv("ROUTE")
-	durationEnv, _ := strconv.Atoi(os.Getenv("DURATION"))
+	durationEnv := os.Getenv("DURATION")
 	rateEnv, _ := strconv.Atoi(os.Getenv("RATE"))
 	usernameEnv := os.Getenv("KIALI_USERNAME")
 	passwordEnv := os.Getenv("KIALI_PASSWORD")
 
 	rate := vegeta.Rate{Freq: rateEnv, Per: time.Second}
-	duration := time.Duration(durationEnv) * time.Second
+	duration, _ := time.ParseDuration(durationEnv)
 
 	pod := uuid.Must(uuid.NewV4()).String()
 
