@@ -8,7 +8,7 @@
   - name: Deleting Namespace for Kiali Windsock Dashboard
     k8s:
       api_version: v1
-      kind: Project
+      kind: Namespace
       name: "{{ dashboard_namespace }}"
       state: absent
     ignore_errors: true
@@ -16,7 +16,7 @@
   - name: Creating Namespace for Kiali Windsock Dashboard
     k8s:
       api_version: v1
-      kind: Project
+      kind: Namespace
       name: "{{ dashboard_namespace }}"
       state: present
     register: projectStatus
