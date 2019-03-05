@@ -1,4 +1,4 @@
-DOCKER_NAME ?= gbaufake/windsock
+DOCKER_NAME ?= kiali/windsock
 DOCKER_TAG ?= latest
 
 

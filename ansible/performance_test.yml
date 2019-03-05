@@ -89,7 +89,7 @@
                 app: kiali-windsock-user{{ item }}
             spec:
               containers:
-              - image: gbaufake/windsock:latest
+              - image: kiali/windsock:latest
                 name: kiali-windsock-user{{ item }}
                 imagePullPolicy: Always
                 env:
