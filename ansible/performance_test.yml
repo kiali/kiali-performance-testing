@@ -6,7 +6,7 @@
   - name: Deleting Namespace from old testing
     k8s:
       api_version: v1
-      kind: Project
+      kind: Namespace
       name: "{{ test_name | lower }}-api-performance-test"
       state: absent
     ignore_errors: true
@@ -14,7 +14,7 @@
   - name: Creating Namespace for new tests 
     k8s:
       api_version: v1
-      kind: Project
+      kind: Namespace
       name: "{{ test_name | lower }}-api-performance-test"
       state: present
     register: projectStatus
