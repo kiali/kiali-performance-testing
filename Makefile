@@ -40,4 +40,4 @@ deploy-dashboard:
 
 deploy-performance-test:
 	@echo Deploying Performance Test Kiali Windsock
-	ansible-playbook ansible/performance_test.yml -e kiali_hostname=${KIALI_HOSTNAME} -e kiali_username=${KIALI_USERNAME} -e kiali_password=${KIALI_PASSWORD} -e test_name=${TEST_NAME} -e influx_address=${INFLUX_ADDRESS} -e influx_username=${INFLUX_USERNAME} -e influx_password=${INFLUX_PASSWORD} -e rate=${RATE} -e duration=${DURATION} -e number_of_users=${NUMBER_OF_USERS}  -v
+	ansible-playbook ansible/performance_test.yml -e kiali_hostname='${KIALI_HOSTNAME}' -e kiali_username=${KIALI_USERNAME} -e kiali_password=${KIALI_PASSWORD} -e test_name=${TEST_NAME} -e influx_address=${INFLUX_ADDRESS} -e influx_username=${INFLUX_USERNAME} -e influx_password=${INFLUX_PASSWORD} -e rate=${RATE} -e duration=${DURATION} -e number_of_users=${NUMBER_OF_USERS}  -v
