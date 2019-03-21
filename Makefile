@@ -35,7 +35,7 @@ clean:
 
 deploy-dashboard:
 	@echo Deploying dashboard
-	ansible-playbook ansible/dashboard.yml -e storage_size=${STORAGE_SIZE} -e influx_username=${INFLUX_USERNAME} -e influx_password=${INFLUX_PASSWORD} -vvv
+	ansible-playbook ansible/dashboard.yml -vvv
 
 
 deploy-performance-test:

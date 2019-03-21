@@ -1,0 +1,13 @@
+name: InfluxDB
+type: influxdb
+typeLogoUrl: public/app/plugins/datasource/influxdb/img/influxdb_logo.svg
+access: proxy
+url: {{ influx_hostname }}
+password: {{ influx_password }}
+user: {{ influx_username }}
+database: windsock
+basicAuth: false
+isDefault: true
+jsonData:
+    keepCookies: []
+readOnly: false

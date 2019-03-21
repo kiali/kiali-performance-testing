@@ -1,10 +1,15 @@
 - hosts: localhost
   connection: local
-  vars: 
-    - dashboard_namespace: "kiali-windsock-dashboard"
-    - routes: ""
 
   tasks:
+  - name: 
+    set_fact:
+      dashboard_namespace: "kiali-windsock-dashboard"
+      routes: ""
+      influx_username: "admin"
+      storage_size: "5Gi"
+      influx_password: "{{ ansible_date_time.epoch | to_uuid}}"
+
   - name: Deleting Namespace for Kiali Windsock Dashboard
     k8s:
       api_version: v1
@@ -219,7 +224,31 @@
           - type: ConfigChange
         status: {}
 
-  - name: Print Routes
-    debug:
-      msg: "InfluxDB route: {{ routes['results'][0]['result']['spec']['host'] }} and Grafana Route: {{ routes['results'][1]['result']['spec']['host'] }}"
-    
+  - name: Get Routes
+    set_fact:
+      influx_hostname: "{{ routes['results'][0]['result']['spec']['host'] }}"
+      grafana_hostname: "{{ routes['results'][1]['result']['spec']['host'] }}"
+
+  - name: Pause until Grafana is Ready
+    pause:
+      minutes: 3
+
+  - name: Create Datasource on Grafana
+    uri:
+      url: "http://{{ grafana_hostname }}/api/datasources"
+      method: POST
+      user: admin
+      password: admin      
+      body: "{{ lookup('template', 'templates/datasource.yaml') | to_json }}"
+      force_basic_auth: yes
+      body_format: json
+
+  - name: Create Dashboard on Grafana
+    uri:
+      url: "http://{{ grafana_hostname }}/api/datasources"
+      method: POST
+      user: admin
+      password: admin      
+      body: "{{ lookup('template', 'templates/datasource.yaml') | to_json }}"
+      force_basic_auth: yes
+      body_format: json
