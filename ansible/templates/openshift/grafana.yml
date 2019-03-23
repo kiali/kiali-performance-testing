@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: grafana
+  namespace: "{{ dashboard_namespace }}"
+  labels:
+    app: grafana 
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - env:
+        image: grafana/grafana
+        imagePullPolicy: Always
+        name: grafana
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      volumes:
+{% if not ephemeral %}
+        - name: grafana-data
+          persistentVolumeClaim:
+            claimName: grafana-data
+{% endif %}
+{% if ephemeral %}
+        - emptyDir: {}
+          name: grafana-data
+{% endif %}
+      
+  test: false
+  triggers:
+  - type: ConfigChange
+status: {}

@@ -1,0 +1,51 @@
+  apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    name: influxdb
+    namespace: "{{ dashboard_namespace }}"
+    labels:
+      app: influxdb
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: influxdb
+      spec:
+        containers:
+        - env:
+          - name: INFLUXDB_DB
+            value: "windsock"
+          - name: INFLUXDB_HTTP_AUTH_ENABLED
+            value: "true"
+          - name: INFLUXDB_ADMIN_USER
+            value: "{{ influx_username }}"
+          - name: INFLUXDB_ADMIN_PASSWORD
+            value: "{{ influx_password }}"
+          image: influxdb
+          imagePullPolicy: Always
+          name: influxdb
+          ports:
+          - containerPort: 8086
+            protocol: TCP
+          volumeMounts:
+          - mountPath: /var/lib/influxdb
+            name: influxdb-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        volumes:
+{% if not ephemeral %}
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data
+{% endif %}
+{% if ephemeral %}
+        - emptyDir: {}
+          name: influxdb-data
+{% endif %}
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}

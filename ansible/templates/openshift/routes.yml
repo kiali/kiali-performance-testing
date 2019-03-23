@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: "{{ item.name }}"
+  name: "{{ item.name }}"
+  namespace: "{{ dashboard_namespace }}"
+spec:
+  port:
+    targetPort: "{{ item.target_port }}"
+  to:
+    kind: Service
+    name: "{{ item.service_name }}"
+    weight: 100
+  wildcardPolicy: None

@@ -8,22 +8,19 @@
       routes: ""
       influx_username: "admin"
       storage_size: "5Gi"
+      ephemeral: true
       influx_password: "{{ ansible_date_time.epoch | to_uuid}}"
 
   - name: Deleting Namespace for Kiali Windsock Dashboard
     k8s:
-      api_version: v1
-      kind: Namespace
-      name: "{{ dashboard_namespace }}"
       state: absent
+      definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
     ignore_errors: true
 
   - name: Creating Namespace for Kiali Windsock Dashboard
     k8s:
-      api_version: v1
-      kind: Namespace
-      name: "{{ dashboard_namespace }}"
       state: present
+      definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
     register: projectStatus
     until: projectStatus.changed == true
     retries: 100
@@ -32,18 +29,7 @@
   - name: Creating PVCs
     k8s:
       state: present
-      definition:
-        apiVersion: v1
-        kind: PersistentVolumeClaim
-        metadata:
-          name: "{{ item.name }}"
-          namespace: "{{ dashboard_namespace }}"
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: "{{ storage_size }}"
+      definition: "{{ lookup('template', 'templates/openshift/pvc.yml') }}"
         
     with_items: 
       - {"name": "influxdb-data"}
@@ -52,178 +38,33 @@
   - name: Create Grafana Service
     k8s:
       state: present
-      definition:
-        apiVersion: v1
-        kind: Service
-        metadata:
-          labels:
-            app: grafana
-          name: grafana-svc
-          namespace: "{{ dashboard_namespace }}"
-        spec:
-          ports:
-          - name: api-http
-            port: 3000
-            protocol: TCP
-            targetPort: 3000
-          selector:
-            app: grafana
-          sessionAffinity: None
-          type: ClusterIP
-        status:
-          loadBalancer: {}
+      definition: "{{ lookup('template', 'templates/openshift/grafana-service.yml') }}"
 
   - name: Create Influx Service
     k8s:
       state: present
-      definition:
-        apiVersion: v1
-        kind: Service  
-        metadata:
-          labels:
-            app: influxdb
-          name: 'influxdb-svc'
-          namespace: "{{ dashboard_namespace }}"
-        spec:
-          ports:
-          - name: api-http
-            port: 8086
-            protocol: TCP
-            targetPort: 8086
-          - name: api-udp
-            port: 8087
-            protocol: UDP
-            targetPort: 8087
-          - name: admin-http
-            port: 8083
-            protocol: TCP
-            targetPort: 8083
-          selector:
-            app: influxdb
-          sessionAffinity: None
-          type: ClusterIP
-        status:
-          loadBalancer: {}
+      definition: "{{ lookup('template', 'templates/openshift/influx-service.yml') }}"
+        
 
   - name: Create Routes
     k8s:
       state: present
-      definition:
-        apiVersion: route.openshift.io/v1
-        kind: Route
-        metadata:
-          labels:
-            app: "{{ item.name }}"
-          name: "{{ item.name }}"
-          namespace: "{{ dashboard_namespace }}"
-        spec:
-          port:
-            targetPort: "{{ item.target_port }}"
-          to:
-            kind: Service
-            name: "{{ item.service_name }}"
-            weight: 100
-          wildcardPolicy: None
+      definition: "{{ lookup('template', 'templates/openshift/routes.yml') }}"
     with_items:
      - {name: 'influxdb', service_name: 'influxdb-svc', target_port: 'api-http'}
      - {name: 'grafana', service_name: 'grafana-svc', target_port: 'api-http'}
-    
     register: routes
 
-
-
-  - name: Create Grafana DeploymentConfig
+  - name: Create Grafana ReplicaSet
     k8s:
       state: present
-      definition:
-        apiVersion: extensions/v1beta1
-        kind: ReplicaSet
-        metadata:
-          name: grafana
-          namespace: "{{ dashboard_namespace }}"
-          labels:
-            app: grafana 
-        spec:
-          replicas: 1
-          strategy:
-            type: Recreate
-          template:
-            metadata:
-              labels:
-                app: grafana
-            spec:
-              containers:
-              - env:
-                image: grafana/grafana
-                imagePullPolicy: Always
-                name: grafana
-                ports:
-                - containerPort: 3000
-                  protocol: TCP
-                volumeMounts:
-                - mountPath: /var/lib/grafana
-                  name: grafana-data
-              dnsPolicy: ClusterFirst
-              restartPolicy: Always
-              volumes:
-              - name: grafana-data
-                persistentVolumeClaim:
-                  claimName: grafana-data
-          test: false
-          triggers:
-          - type: ConfigChange
-        status: {}
+      definition: "{{ lookup('template', 'templates/openshift/grafana.yml') }}"
   
   - name: Create Influx DeploymentConfig
     k8s:
       state: present
-      definition:
-        apiVersion: extensions/v1beta1
-        kind: ReplicaSet
-        metadata:
-          name: influxdb
-          namespace: "{{ dashboard_namespace }}"
-          labels:
-            app: influxdb
-        spec:
-          replicas: 1
-          strategy:
-            type: Recreate
-          template:
-            metadata:
-              labels:
-                app: influxdb
-            spec:
-              containers:
-              - env:
-                - name: INFLUXDB_DB
-                  value: "windsock"
-                - name: INFLUXDB_HTTP_AUTH_ENABLED
-                  value: "true"
-                - name: INFLUXDB_ADMIN_USER
-                  value: "{{ influx_username }}"
-                - name: INFLUXDB_ADMIN_PASSWORD
-                  value: "{{ influx_password }}"
-                image: influxdb
-                imagePullPolicy: Always
-                name: influxdb
-                ports:
-                - containerPort: 8086
-                  protocol: TCP
-                volumeMounts:
-                - mountPath: /var/lib/influxdb
-                  name: influxdb-data
-              dnsPolicy: ClusterFirst
-              restartPolicy: Always
-              volumes:
-              - name: influxdb-data
-                persistentVolumeClaim:
-                  claimName: influxdb-data
-          test: false
-          triggers:
-          - type: ConfigChange
-        status: {}
-
+      definition: "{{ lookup('template', 'templates/openshift/influxdb.yml') }}"
+  
   - name: Get Routes
     set_fact:
       influx_hostname: "{{ routes['results'][0]['result']['spec']['host'] }}"
@@ -235,11 +76,11 @@
 
   - name: Create Datasource on Grafana
     uri:
-      url: "http://{{ grafana_hostname }}/api/datasources"
+      url: "http://{{ grafana_hostname }}/api/dashboards/db"
       method: POST
       user: admin
       password: admin      
-      body: "{{ lookup('template', 'templates/datasource.yaml') | to_json }}"
+      body: "{{ lookup('template', 'templates/dashboard.json') }}"
       force_basic_auth: yes
       body_format: json
 
