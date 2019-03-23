@@ -44,59 +44,24 @@ pip install --user openshift
 
 == Deploying Dashboard (InfluxDB and Grafana) on Openshift
 
-[NOTE]
-Your openshift cluster will need to have 2 Persistent Storage (one for InfluxDB and other for Grafana Dashboard). 
 
-[NOTE]
-You can use the makefile to deploy with standard variables. The makefile defines some environment variables if they are not exported. **STORAGE** tells size of each persistent storage and it has  **5GI** as standard value, so it will be created two persisent storages.
-
-[NOTE]
-The environment variable **INFLUX_USERNAME** defines InfluxDB username and InfluxDB password is defined in **INFLUX_PASSWORD**
-
-[NOTE]
-You don't need to redeploy your Dashbord everytime, it is recommended to do only one time at 
+=== Ephemeral Dashboard
 
 [source,shell]
 ----
-make deploy-dashboard
+make deploy-dashboard-ephemeral
 ----
 
-Also you can use the ansible command:
+=== Persistent Dashboard 
 
-[source,shell]
+[NOTE]
+Your openshift cluster will need to have 2 Persistent Storage at least **5GI**(one for InfluxDB and other for Grafana Dashboard). 
+
 ----
-ansible-playbook ansible/dashboard -e storage_size=5Gi -e influx_username=admin -e influx_password=admin
-----
-
-At the end of the script, your going to see the influxdb route and grafana routes:
-
-[source,shell]
-----
-TASK [Print Routes] *********************************************************************************************************
-task path: /home/gbaufake/Redhat/kiali-performance/ansible/dashboard.yml:222
-ok: [localhost] => {}
-
-MSG:
-
-InfluxDB route: influxdb-kiali-windsock-dashboard.openshift.cluster.domain.com and Grafana Route: grafana-kiali-windsock-dashboard.openshift.cluster.domain.com
-
-META: ran handlers
-META: ran handlers
-
-PLAY RECAP ******************************************************************************************************************
-localhost                  : ok=10   changed=8    unreachable=0    failed=0
+make deploy-dashboard-persistent
 ----
 
-Store influxDB in **INFLUX_ADDRESS**
 
-=== Importing Grafana Dashboard
-
-All the relevant queries concerning latency (min, max, percentile25, percentile50, percentile75, percentile99), response_size are displayed on link:./dashboard/kiali-winsock-grafana-dashboard.json[Dashboard].
-
-
-Example of Dashboard provided by the file:
-
-image::grafana-dashboard.png[]
 
 == Deploying Windsock
 

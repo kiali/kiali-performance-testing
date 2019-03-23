@@ -8,7 +8,6 @@
       routes: ""
       influx_username: "admin"
       storage_size: "5Gi"
-      ephemeral: true
       influx_password: "{{ ansible_date_time.epoch | to_uuid}}"
 
   - name: Deleting Namespace for Kiali Windsock Dashboard
