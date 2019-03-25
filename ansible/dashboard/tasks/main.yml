@@ -82,3 +82,7 @@
     body: "{{ lookup('template', 'templates/dashboard.json') }}"
     force_basic_auth: yes
     body_format: json
+
+- name: Print Grafana and InfluxDb Data
+  debug:
+    msg: "Grafana URL {{ grafana_hostname }}, InfluxDB URL: {{ influx_hostname}}, InfluxDB Password: {{ influx_password }}"
