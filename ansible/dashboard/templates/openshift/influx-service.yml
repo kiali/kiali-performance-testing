@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service  
+metadata:
+  labels:
+    app: influxdb
+  name: 'influxdb-svc'
+  namespace: "{{ dashboard_namespace }}"
+spec:
+  ports:
+  - name: api-http
+    port: 8086
+    protocol: TCP
+    targetPort: 8086
+  - name: api-udp
+    port: 8087
+    protocol: UDP
+    targetPort: 8087
+  - name: admin-http
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app: influxdb
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

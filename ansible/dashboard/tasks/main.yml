@@ -1,0 +1,84 @@
+---
+# tasks file for dashboard  
+- name: Deleting Namespace for Kiali Windsock Dashboard
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
+  ignore_errors: true
+
+- name: Creating Namespace for Kiali Windsock Dashboard
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
+  register: projectStatus
+  until: projectStatus.changed == true
+  retries: 100
+  delay: 20
+
+- name: Creating PVCs
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/pvc.yml') }}"
+      
+  with_items: 
+    - {"name": "influxdb-data"}
+    - {"name": "grafana-data"}
+
+- name: Create Grafana Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/grafana-service.yml') }}"
+
+- name: Create Influx Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/influx-service.yml') }}"
+      
+
+- name: Create Routes
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/routes.yml') }}"
+  with_items:
+    - {name: 'influxdb', service_name: 'influxdb-svc', target_port: 'api-http'}
+    - {name: 'grafana', service_name: 'grafana-svc', target_port: 'api-http'}
+  register: routes
+
+- name: Create Grafana ReplicaSet
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/grafana.yml') }}"
+
+- name: Create Influx DeploymentConfig
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/influxdb.yml') }}"
+
+- name: Get Routes
+  set_fact:
+    influx_hostname: "{{ routes['results'][0]['result']['spec']['host'] }}"
+    grafana_hostname: "{{ routes['results'][1]['result']['spec']['host'] }}"
+
+- name: Pause until Grafana is Ready
+  pause:
+    minutes: 3
+
+- name: Create Datasource on Grafana
+  uri:
+    url: "http://{{ grafana_hostname }}/api/datasources"
+    method: POST
+    user: admin
+    password: admin      
+    body: "{{ lookup('template', 'templates/datasource.json.j2', convert_data=False) | string }}"
+    force_basic_auth: yes
+    body_format: json
+
+- name: Create Dashboard on Grafana
+  uri:
+    url: "http://{{ grafana_hostname }}/api/dashboards/db"
+    method: POST
+    user: admin
+    password: admin      
+    body: "{{ lookup('template', 'templates/dashboard.json') }}"
+    force_basic_auth: yes
+    body_format: json

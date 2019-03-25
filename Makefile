@@ -18,8 +18,6 @@ RATE ?= '1' # requests rate per second
 DURATION ?= '0s' # duration of test in seconds (0 is eternal)
 NUMBER_OF_USERS ?= '5' # number of pods which be deployed
 
-STORAGE_SIZE ?= 5Gi
-
 all: docker-build
 
 docker-build:
@@ -33,10 +31,13 @@ clean:
 	@rm -rf _output
 
 
-deploy-dashboard:
-	@echo Deploying dashboard
-	ansible-playbook ansible/dashboard.yml -e storage_size=${STORAGE_SIZE} -e influx_username=${INFLUX_USERNAME} -e influx_password=${INFLUX_PASSWORD} -vvv
+deploy-dashboard-ephemeral:
+	@echo Deploying dashboard with no persistent storage
+	ansible-playbook ansible/dashboard.yml -e ephemeral=true -vvv
 
+deploy-dashboard-persistent:
+	@echo Deploying dashboard with persistent storage 
+	ansible-playbook ansible/dashboard.yml -e ephemeral=false -vvv
 
 deploy-performance-test:
 	@echo Deploying Performance Test Kiali Windsock

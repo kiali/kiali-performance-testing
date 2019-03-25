@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: grafana
+  name: grafana-svc
+  namespace: "{{ dashboard_namespace }}"
+spec:
+  ports:
+  - name: api-http
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: grafana
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
