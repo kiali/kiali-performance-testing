@@ -1,0 +1,58 @@
+---
+# tasks file for performance-test
+- name: Deleting Namespace from old testing
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
+  ignore_errors: true
+
+- name: Creating Namespace for new tests
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/namespace.yml') }}"
+  register: projectStatus
+  until: projectStatus.changed == true
+  retries: 100
+  delay: 20
+
+- name: Creating Configmap
+  k8s: 
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/configmap.yml') }}"
+      
+
+- name: Creating InfluxDB Secret
+  k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: 'influx-credentials'
+        namespace: "{{ test_name | lower }}-api-performance-test"
+      type: Opaque
+      data:
+        username: "{{ influx_username| b64encode }}"
+        password: "{{ influx_password | b64encode}}"
+
+- name: Creating Kiali Secret
+  k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: 'kiali-credentials'
+        namespace: "{{ test_name | lower }}-api-performance-test"
+      type: Opaque
+      data:
+        username: "{{ kiali_username| b64encode }}"
+        password: "{{ kiali_password | b64encode}}"
+      
+
+- name: Deploy Kiali Windsock
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'templates/openshift/windsock.yml') }}"
+  with_sequence: start=1 end={{ number_of_users }} format=%d
+      

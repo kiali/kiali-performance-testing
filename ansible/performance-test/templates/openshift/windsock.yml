@@ -1,0 +1,74 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: kiali-windsock-user{{ item }}
+  namespace: "{{ test_name | lower }}-api-performance-test"
+  labels:
+    app: kiali-windsock-user{{ item }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: kiali-windsock-user{{ item }}
+    spec:
+      containers:
+      - image: kiali/windsock:latest
+        name: kiali-windsock-user{{ item }}
+        imagePullPolicy: Always
+        env:
+        - name: SESSION_ID
+          valueFrom:
+            configMapKeyRef:
+              name: kiali-api-performance-configmap
+              key: session_id
+
+        - name: DURATION
+          valueFrom:
+            configMapKeyRef:
+              name: kiali-api-performance-configmap
+              key: duration
+
+        - name: ROUTE
+          valueFrom:
+            configMapKeyRef:
+              name: kiali-api-performance-configmap
+              key: route
+
+        - name: RATE
+          valueFrom:
+            configMapKeyRef:
+              name: kiali-api-performance-configmap
+              key: rate
+
+        - name: INFLUX_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: kiali-api-performance-configmap
+              key: influx_address
+
+        - name: INFLUX_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: influx-credentials
+              key: username
+
+        - name: INFLUX_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: influx-credentials
+              key: password
+
+        - name: KIALI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: kiali-credentials
+              key: username
+
+        - name: KIALI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kiali-credentials
+              key: password

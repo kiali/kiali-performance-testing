@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kiali-api-performance-configmap
+  namespace: "{{ test_name | lower }}-api-performance-test"
+data:
+  duration: "{{ duration }}"
+  route: "{{ route }}"
+  rate: "{{ rate }}"
+  session_id: "{{ 9999999 | random | to_uuid }}"
+  influx_address: "{{ influx_address }}"
