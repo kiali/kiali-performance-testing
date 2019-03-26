@@ -1,8 +1,8 @@
-{  
-    "dashboard":{  
-        "annotations":{  
-            "list":[  
-                {  
+{
+    "dashboard":{
+       "annotations":{
+          "list":[
+             {
                 "builtIn":1,
                 "datasource":"-- Grafana --",
                 "enable":true,
@@ -10,154 +10,154 @@
                 "iconColor":"rgba(0, 211, 255, 1)",
                 "name":"Annotations \u0026 Alerts",
                 "type":"dashboard"
-                }
-            ]
-        },
-        "editable":true,
-        "gnetId":null,
-        "graphTooltip":0,
-        "id":null,
-        "links":[  
-    
-        ],
-        "panels":[  
-            {  
-                "cacheTimeout":null,
-                "colorBackground":false,
-                "colorValue":false,
-                "colors":[  
+             }
+          ]
+       },
+       "editable":true,
+       "gnetId":null,
+       "graphTooltip":0,
+       "id":null,
+       "links":[
+ 
+       ],
+       "panels":[
+          {
+             "cacheTimeout":null,
+             "colorBackground":false,
+             "colorValue":false,
+             "colors":[
                 "#299c46",
                 "rgba(237, 129, 40, 0.89)",
                 "#d44a3a"
-                ],
-                "datasource":"InfluxDB",
-                "format":"none",
-                "gauge":{  
+             ],
+             "datasource":"InfluxDB",
+             "format":"none",
+             "gauge":{
                 "maxValue":100,
                 "minValue":0,
                 "show":false,
                 "thresholdLabels":false,
                 "thresholdMarkers":true
-                },
-                "gridPos":{  
+             },
+             "gridPos":{
                 "h":3,
                 "w":24,
                 "x":0,
                 "y":0
+             },
+             "id":13,
+             "interval":null,
+             "links":[
+ 
+             ],
+             "mappingType":1,
+             "mappingTypes":[
+                {
+                   "name":"value to text",
+                   "value":1
                 },
-                "id":13,
-                "interval":null,
-                "links":[  
-    
-                ],
-                "mappingType":1,
-                "mappingTypes":[  
-                {  
-                    "name":"value to text",
-                    "value":1
-                },
-                {  
-                    "name":"range to text",
-                    "value":2
+                {
+                   "name":"range to text",
+                   "value":2
                 }
-                ],
-                "maxDataPoints":100,
-                "nullPointMode":"connected",
-                "nullText":null,
-                "postfix":"",
-                "postfixFontSize":"50%",
-                "prefix":"",
-                "prefixFontSize":"50%",
-                "rangeMaps":[  
-                {  
-                    "from":"null",
-                    "text":"N/A",
-                    "to":"null"
+             ],
+             "maxDataPoints":100,
+             "nullPointMode":"connected",
+             "nullText":null,
+             "postfix":"",
+             "postfixFontSize":"50%",
+             "prefix":"",
+             "prefixFontSize":"50%",
+             "rangeMaps":[
+                {
+                   "from":"null",
+                   "text":"N/A",
+                   "to":"null"
                 }
-                ],
-                "sparkline":{  
+             ],
+             "sparkline":{
                 "fillColor":"rgba(31, 118, 189, 0.18)",
                 "full":false,
                 "lineColor":"rgb(31, 120, 193)",
                 "show":false
-                },
-                "tableColumn":"value",
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             },
+             "tableColumn":"value",
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"show tag values on windsock with key = route\n",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"table",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "value"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"show tag values on windsock with key = route\n",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"table",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "value"
                             ],
                             "type":"field"
-                            },
-                            {  
-                            "params":[  
-    
+                         },
+                         {
+                            "params":[
+ 
                             ],
                             "type":"mean"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "thresholds":"",
-                "timeFrom":null,
-                "timeShift":null,
-                "title":"Route",
-                "transparent":true,
-                "type":"singlestat",
-                "valueFontSize":"50%",
-                "valueMaps":[  
-                {  
-                    "op":"=",
-                    "text":"N/A",
-                    "value":"null"
+             ],
+             "thresholds":"",
+             "timeFrom":null,
+             "timeShift":null,
+             "title":"Route",
+             "transparent":true,
+             "type":"singlestat",
+             "valueFontSize":"50%",
+             "valueMaps":[
+                {
+                   "op":"=",
+                   "text":"N/A",
+                   "value":"null"
                 }
-                ],
-                "valueName":"name"
-            },
-            {  
-                "aliasColors":{  
-    
-                },
-                "bars":false,
-                "dashLength":10,
-                "dashes":false,
-                "datasource":"InfluxDB",
-                "fill":1,
-                "gridPos":{  
+             ],
+             "valueName":"name"
+          },
+          {
+             "aliasColors":{
+ 
+             },
+             "bars":false,
+             "dashLength":10,
+             "dashes":false,
+             "datasource":"InfluxDB",
+             "fill":1,
+             "gridPos":{
                 "h":11,
                 "w":24,
                 "x":0,
                 "y":3
-                },
-                "id":2,
-                "legend":{  
+             },
+             "id":2,
+             "legend":{
                 "alignAsTable":true,
                 "avg":true,
                 "current":true,
@@ -167,522 +167,522 @@
                 "show":true,
                 "total":false,
                 "values":true
-                },
-                "lines":true,
-                "linewidth":1,
-                "links":[  
-    
-                ],
-                "nullPointMode":"null",
-                "paceLength":10,
-                "percentage":false,
-                "pointradius":5,
-                "points":false,
-                "renderer":"flot",
-                "seriesOverrides":[  
-    
-                ],
-                "spaceLength":10,
-                "stack":false,
-                "steppedLine":false,
-                "targets":[  
-                {  
-                    "alias":"",
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             },
+             "lines":true,
+             "linewidth":1,
+             "links":[
+ 
+             ],
+             "nullPointMode":"null",
+             "paceLength":10,
+             "percentage":false,
+             "pointradius":5,
+             "points":false,
+             "renderer":"flot",
+             "seriesOverrides":[
+ 
+             ],
+             "spaceLength":10,
+             "stack":false,
+             "steppedLine":false,
+             "targets":[
+                {
+                   "alias":"",
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "session"
-                            ],
-                            "type":"tag"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"tag"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "measurement":"requests",
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT \"latency\" FROM \"requests\" WHERE $timeFilter GROUP BY session, pod\n",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"time_series",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "latency"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "measurement":"requests",
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT \"latency\" FROM \"requests\" WHERE $timeFilter GROUP BY session, pod\n",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"time_series",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "latency"
                             ],
                             "type":"field"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "thresholds":[  
-    
-                ],
-                "timeFrom":null,
-                "timeRegions":[  
-    
-                ],
-                "timeShift":null,
-                "title":"Live Latency",
-                "tooltip":{  
+             ],
+             "thresholds":[
+ 
+             ],
+             "timeFrom":null,
+             "timeRegions":[
+ 
+             ],
+             "timeShift":null,
+             "title":"Live Latency",
+             "tooltip":{
                 "shared":true,
                 "sort":0,
                 "value_type":"individual"
-                },
-                "type":"graph",
-                "xaxis":{  
+             },
+             "type":"graph",
+             "xaxis":{
                 "buckets":null,
                 "mode":"time",
                 "name":null,
                 "show":true,
-                "values":[  
-    
+                "values":[
+ 
                 ]
+             },
+             "yaxes":[
+                {
+                   "format":"ms",
+                   "label":null,
+                   "logBase":1,
+                   "max":null,
+                   "min":null,
+                   "show":true
                 },
-                "yaxes":[  
-                {  
-                    "format":"ms",
-                    "label":null,
-                    "logBase":1,
-                    "max":null,
-                    "min":null,
-                    "show":true
-                },
-                {  
-                    "format":"ms",
-                    "label":null,
-                    "logBase":1,
-                    "max":null,
-                    "min":null,
-                    "show":false
+                {
+                   "format":"ms",
+                   "label":null,
+                   "logBase":1,
+                   "max":null,
+                   "min":null,
+                   "show":false
                 }
-                ],
-                "yaxis":{  
+             ],
+             "yaxis":{
                 "align":false,
                 "alignLevel":null
-                }
-            },
-            {  
-                "columns":[  
-    
-                ],
-                "datasource":"InfluxDB",
-                "fontSize":"100%",
-                "gridPos":{  
-                "h":9,
-                "w":12,
+             }
+          },
+          {
+             "columns":[
+ 
+             ],
+             "datasource":"InfluxDB",
+             "fontSize":"100%",
+             "gridPos":{
+                "h":4,
+                "w":24,
                 "x":0,
                 "y":14
-                },
-                "id":10,
-                "links":[  
-    
-                ],
-                "pageSize":null,
-                "scroll":true,
-                "showHeader":true,
-                "sort":{  
-                "col":0,
-                "desc":true
-                },
-                "styles":[  
-                {  
-                    "alias":"",
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "pattern":"/percentile.*/",
-                    "type":"number",
-                    "unit":"ms"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"session",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"string",
-                    "unit":"short"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"Time",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"hidden",
-                    "unit":"short"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "decimals":2,
-                    "pattern":"/.*/",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"short"
-                }
-                ],
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
-                            "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
-                            "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT percentile(\"latency\", 25) as percentile25,  percentile(\"latency\", 50) as percentile50, percentile(\"latency\", 75) as percentile75, percentile(\"latency\", 99) as percentile99 FROM \"requests\" WHERE $timeFilter GROUP BY session, pod",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"table",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "value"
-                            ],
-                            "type":"field"
-                            },
-                            {  
-                            "params":[  
-    
-                            ],
-                            "type":"mean"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
-                }
-                ],
-                "title":"Live Latency Percentile per pod",
-                "transform":"table",
-                "type":"table"
-            },
-            {  
-                "columns":[  
-    
-                ],
-                "datasource":"InfluxDB",
-                "fontSize":"100%",
-                "gridPos":{  
-                "h":3,
-                "w":12,
-                "x":12,
-                "y":14
-                },
-                "id":11,
-                "links":[  
-    
-                ],
-                "pageSize":null,
-                "scroll":true,
-                "showHeader":true,
-                "sort":{  
+             },
+             "id":11,
+             "links":[
+ 
+             ],
+             "pageSize":null,
+             "scroll":true,
+             "showHeader":true,
+             "sort":{
                 "col":3,
                 "desc":true
+             },
+             "styles":[
+                {
+                   "alias":"Time",
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "pattern":"Time",
+                   "type":"hidden"
                 },
-                "styles":[  
-                {  
-                    "alias":"Time",
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "pattern":"Time",
-                    "type":"hidden"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"session",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"string",
+                   "unit":"short"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"session",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"string",
-                    "unit":"short"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"short"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"short"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "decimals":2,
+                   "pattern":"/percentile.*/",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"ms"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "decimals":2,
-                    "pattern":"/percentile.*/",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"ms"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"minimum_latency",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"ms"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"minimum_latency",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"ms"
                 }
-                ],
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             ],
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT min(\"latency\") as minimum_latency, percentile(\"latency\", 25) as percentile_latency_total_25,  percentile(\"latency\", 50) as percentile_latency_total_50, percentile(\"latency\", 75) as percentile_latency_total_75, percentile(\"latency\", 99) as percentile_latency_total_99 FROM \"requests\" WHERE $timeFilter GROUP BY session",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"table",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "value"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT min(\"latency\") as minimum_latency, percentile(\"latency\", 25) as percentile_latency_total_25,  percentile(\"latency\", 50) as percentile_latency_total_50, percentile(\"latency\", 75) as percentile_latency_total_75, percentile(\"latency\", 99) as percentile_latency_total_99 FROM \"requests\" WHERE $timeFilter GROUP BY session",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"table",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "value"
                             ],
                             "type":"field"
-                            },
-                            {  
-                            "params":[  
-    
+                         },
+                         {
+                            "params":[
+ 
                             ],
                             "type":"mean"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "title":"Live Latency Percentile (Total)",
-                "transform":"table",
-                "type":"table"
-            },
-            {  
-                "columns":[  
-    
-                ],
-                "datasource":"InfluxDB",
-                "fontSize":"100%",
-                "gridPos":{  
+             ],
+             "title":"Live Latency Percentile (Total)",
+             "transform":"table",
+             "type":"table"
+          },
+          {
+             "columns":[
+ 
+             ],
+             "datasource":"InfluxDB",
+             "fontSize":"100%",
+             "gridPos":{
+                "h":6,
+                "w":12,
+                "x":0,
+                "y":18
+             },
+             "id":10,
+             "links":[
+ 
+             ],
+             "pageSize":null,
+             "scroll":true,
+             "showHeader":true,
+             "sort":{
+                "col":0,
+                "desc":true
+             },
+             "styles":[
+                {
+                   "alias":"",
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "pattern":"/percentile.*/",
+                   "type":"number",
+                   "unit":"ms"
+                },
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"session",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"string",
+                   "unit":"short"
+                },
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"Time",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"hidden",
+                   "unit":"short"
+                },
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "decimals":2,
+                   "pattern":"/.*/",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"short"
+                }
+             ],
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
+                            "$__interval"
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
+                            "null"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT percentile(\"latency\", 25) as percentile25,  percentile(\"latency\", 50) as percentile50, percentile(\"latency\", 75) as percentile75, percentile(\"latency\", 99) as percentile99 FROM \"requests\" WHERE $timeFilter GROUP BY session, pod",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"table",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "value"
+                            ],
+                            "type":"field"
+                         },
+                         {
+                            "params":[
+ 
+                            ],
+                            "type":"mean"
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
+                }
+             ],
+             "title":"Live Latency Percentile per pod",
+             "transform":"table",
+             "type":"table"
+          },
+          {
+             "columns":[
+ 
+             ],
+             "datasource":"InfluxDB",
+             "fontSize":"100%",
+             "gridPos":{
                 "h":6,
                 "w":12,
                 "x":12,
-                "y":17
-                },
-                "id":6,
-                "links":[  
-    
-                ],
-                "pageSize":null,
-                "scroll":true,
-                "showHeader":true,
-                "sort":{  
+                "y":18
+             },
+             "id":6,
+             "links":[
+ 
+             ],
+             "pageSize":null,
+             "scroll":true,
+             "showHeader":true,
+             "sort":{
                 "col":0,
                 "desc":true
+             },
+             "styles":[
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"Time",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"date",
+                   "unit":"short"
                 },
-                "styles":[  
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"Time",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"date",
-                    "unit":"short"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":null,
-                    "mappingType":1,
-                    "pattern":"count",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"none",
-                    "valueMaps":[  
-                        {  
-                            "text":"",
-                            "value":""
-                        }
-                    ]
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":null,
+                   "mappingType":1,
+                   "pattern":"count",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"none",
+                   "valueMaps":[
+                      {
+                         "text":"",
+                         "value":""
+                      }
+                   ]
                 }
-                ],
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             ],
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "hide":false,
-                    "measurement":"requests",
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT count( \"latency\") FROM \"requests\" WHERE $timeFilter GROUP BY response_code",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"time_series",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "response_code"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "hide":false,
+                   "measurement":"requests",
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT count( \"latency\") FROM \"requests\" WHERE $timeFilter GROUP BY response_code",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"time_series",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "response_code"
                             ],
                             "type":"field"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "title":"Requests Count (Total)",
-                "transform":"timeseries_to_rows",
-                "type":"table"
-            },
-            {  
-                "aliasColors":{  
-    
-                },
-                "bars":false,
-                "dashLength":10,
-                "dashes":false,
-                "datasource":"InfluxDB",
-                "fill":1,
-                "gridPos":{  
+             ],
+             "title":"Requests Count (Total)",
+             "transform":"timeseries_to_rows",
+             "type":"table"
+          },
+          {
+             "aliasColors":{
+ 
+             },
+             "bars":false,
+             "dashLength":10,
+             "dashes":false,
+             "datasource":"InfluxDB",
+             "fill":1,
+             "gridPos":{
                 "h":10,
                 "w":24,
                 "x":0,
-                "y":23
-                },
-                "id":4,
-                "legend":{  
+                "y":24
+             },
+             "id":4,
+             "legend":{
                 "alignAsTable":true,
                 "avg":true,
                 "current":true,
@@ -692,302 +692,302 @@
                 "show":true,
                 "total":false,
                 "values":true
-                },
-                "lines":true,
-                "linewidth":1,
-                "links":[  
-    
-                ],
-                "nullPointMode":"null",
-                "paceLength":10,
-                "percentage":false,
-                "pointradius":5,
-                "points":false,
-                "renderer":"flot",
-                "seriesOverrides":[  
-    
-                ],
-                "spaceLength":10,
-                "stack":false,
-                "steppedLine":false,
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             },
+             "lines":true,
+             "linewidth":1,
+             "links":[
+ 
+             ],
+             "nullPointMode":"null",
+             "paceLength":10,
+             "percentage":false,
+             "pointradius":5,
+             "points":false,
+             "renderer":"flot",
+             "seriesOverrides":[
+ 
+             ],
+             "spaceLength":10,
+             "stack":false,
+             "steppedLine":false,
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "measurement":"requests",
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT \"response_size\" FROM \"requests\" WHERE $timeFilter GROUP BY pod, session",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"time_series",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "response_size"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "measurement":"requests",
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT \"response_size\" FROM \"requests\" WHERE $timeFilter GROUP BY pod, session",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"time_series",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "response_size"
                             ],
                             "type":"field"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "thresholds":[  
-    
-                ],
-                "timeFrom":null,
-                "timeRegions":[  
-    
-                ],
-                "timeShift":null,
-                "title":"Live Response Size",
-                "tooltip":{  
+             ],
+             "thresholds":[
+ 
+             ],
+             "timeFrom":null,
+             "timeRegions":[
+ 
+             ],
+             "timeShift":null,
+             "title":"Live Response Size",
+             "tooltip":{
                 "shared":true,
                 "sort":0,
                 "value_type":"individual"
-                },
-                "type":"graph",
-                "xaxis":{  
+             },
+             "type":"graph",
+             "xaxis":{
                 "buckets":null,
                 "mode":"time",
                 "name":null,
                 "show":true,
-                "values":[  
-    
+                "values":[
+ 
                 ]
+             },
+             "yaxes":[
+                {
+                   "decimals":0,
+                   "format":"decbytes",
+                   "label":null,
+                   "logBase":1,
+                   "max":null,
+                   "min":null,
+                   "show":true
                 },
-                "yaxes":[  
-                {  
-                    "decimals":0,
-                    "format":"decbytes",
-                    "label":null,
-                    "logBase":1,
-                    "max":null,
-                    "min":null,
-                    "show":true
-                },
-                {  
-                    "format":"short",
-                    "label":null,
-                    "logBase":1,
-                    "max":null,
-                    "min":null,
-                    "show":false
+                {
+                   "format":"short",
+                   "label":null,
+                   "logBase":1,
+                   "max":null,
+                   "min":null,
+                   "show":false
                 }
-                ],
-                "yaxis":{  
+             ],
+             "yaxis":{
                 "align":false,
                 "alignLevel":null
-                }
-            },
-            {  
-                "columns":[  
-    
-                ],
-                "datasource":"InfluxDB",
-                "fontSize":"100%",
-                "gridPos":{  
+             }
+          },
+          {
+             "columns":[
+ 
+             ],
+             "datasource":"InfluxDB",
+             "fontSize":"100%",
+             "gridPos":{
                 "h":3,
                 "w":24,
                 "x":0,
-                "y":33
-                },
-                "id":14,
-                "links":[  
-    
-                ],
-                "pageSize":null,
-                "scroll":true,
-                "showHeader":true,
-                "sort":{  
+                "y":34
+             },
+             "id":14,
+             "links":[
+ 
+             ],
+             "pageSize":null,
+             "scroll":true,
+             "showHeader":true,
+             "sort":{
                 "col":2,
                 "desc":false
+             },
+             "styles":[
+                {
+                   "alias":"Time",
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "pattern":"Time",
+                   "type":"hidden"
                 },
-                "styles":[  
-                {  
-                    "alias":"Time",
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "pattern":"Time",
-                    "type":"hidden"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"session",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"string",
+                   "unit":"short"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"session",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"string",
-                    "unit":"short"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"short"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"short"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "decimals":2,
+                   "pattern":"/percentile.*/",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"decbytes"
                 },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "decimals":2,
-                    "pattern":"/percentile.*/",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"decbytes"
-                },
-                {  
-                    "alias":"",
-                    "colorMode":null,
-                    "colors":[  
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat":"YYYY-MM-DD HH:mm:ss",
-                    "decimals":2,
-                    "mappingType":1,
-                    "pattern":"response_size_minimum",
-                    "thresholds":[  
-    
-                    ],
-                    "type":"number",
-                    "unit":"decbytes"
+                {
+                   "alias":"",
+                   "colorMode":null,
+                   "colors":[
+                      "rgba(245, 54, 54, 0.9)",
+                      "rgba(237, 129, 40, 0.89)",
+                      "rgba(50, 172, 45, 0.97)"
+                   ],
+                   "dateFormat":"YYYY-MM-DD HH:mm:ss",
+                   "decimals":2,
+                   "mappingType":1,
+                   "pattern":"response_size_minimum",
+                   "thresholds":[
+ 
+                   ],
+                   "type":"number",
+                   "unit":"decbytes"
                 }
-                ],
-                "targets":[  
-                {  
-                    "groupBy":[  
-                        {  
-                            "params":[  
+             ],
+             "targets":[
+                {
+                   "groupBy":[
+                      {
+                         "params":[
                             "$__interval"
-                            ],
-                            "type":"time"
-                        },
-                        {  
-                            "params":[  
+                         ],
+                         "type":"time"
+                      },
+                      {
+                         "params":[
                             "null"
-                            ],
-                            "type":"fill"
-                        }
-                    ],
-                    "orderByTime":"ASC",
-                    "policy":"default",
-                    "query":"SELECT min(\"response_size\") as response_size_minimum, percentile(\"response_size\", 25) as percentile_response_size_total_25,  percentile(\"response_size\", 50) as percentile_response_size_total_50, percentile(\"response_size\", 75) as percentile_response_size_total_75, percentile(\"response_size\", 99) as percentile_response_size_total_99 FROM \"requests\" WHERE $timeFilter GROUP BY session",
-                    "rawQuery":true,
-                    "refId":"A",
-                    "resultFormat":"table",
-                    "select":[  
-                        [  
-                            {  
-                            "params":[  
-                                "value"
+                         ],
+                         "type":"fill"
+                      }
+                   ],
+                   "orderByTime":"ASC",
+                   "policy":"default",
+                   "query":"SELECT min(\"response_size\") as response_size_minimum, percentile(\"response_size\", 25) as percentile_response_size_total_25,  percentile(\"response_size\", 50) as percentile_response_size_total_50, percentile(\"response_size\", 75) as percentile_response_size_total_75, percentile(\"response_size\", 99) as percentile_response_size_total_99 FROM \"requests\" WHERE $timeFilter GROUP BY session",
+                   "rawQuery":true,
+                   "refId":"A",
+                   "resultFormat":"table",
+                   "select":[
+                      [
+                         {
+                            "params":[
+                               "value"
                             ],
                             "type":"field"
-                            },
-                            {  
-                            "params":[  
-    
+                         },
+                         {
+                            "params":[
+ 
                             ],
                             "type":"mean"
-                            }
-                        ]
-                    ],
-                    "tags":[  
-    
-                    ]
+                         }
+                      ]
+                   ],
+                   "tags":[
+ 
+                   ]
                 }
-                ],
-                "title":"Live Data Percentile (Total)",
-                "transform":"table",
-                "type":"table"
-            }
-        ],
-        "refresh":"1m",
-        "schemaVersion":18,
-        "style":"dark",
-        "tags":[  
-    
-        ],
-        "templating":{  
-            "list":[  
-    
-            ]
-        },
-        "time":{  
-            "from":"now-12h",
-            "to":"now"
-        },
-        "timepicker":{  
-            "refresh_intervals":[  
-                "5s",
-                "10s",
-                "30s",
-                "1m",
-                "5m",
-                "15m",
-                "30m",
-                "1h",
-                "2h",
-                "1d"
-            ],
-            "time_options":[  
-                "5m",
-                "15m",
-                "1h",
-                "6h",
-                "12h",
-                "24h",
-                "2d",
-                "7d",
-                "30d"
-            ]
-        },
-        "timezone":"",
-        "title":"Kiali Windsock Live Dashboard",
-        "uid":"YqrNwi_iz",
-        "version":2
+             ],
+             "title":"Live Data Percentile (Total)",
+             "transform":"table",
+             "type":"table"
+          }
+       ],
+       "refresh":"1m",
+       "schemaVersion":18,
+       "style":"dark",
+       "tags":[
+ 
+       ],
+       "templating":{
+          "list":[
+ 
+          ]
+       },
+       "time":{
+          "from":"now-12h",
+          "to":"now"
+       },
+       "timepicker":{
+          "refresh_intervals":[
+             "5s",
+             "10s",
+             "30s",
+             "1m",
+             "5m",
+             "15m",
+             "30m",
+             "1h",
+             "2h",
+             "1d"
+          ],
+          "time_options":[
+             "5m",
+             "15m",
+             "1h",
+             "6h",
+             "12h",
+             "24h",
+             "2d",
+             "7d",
+             "30d"
+          ]
+       },
+       "timezone":"",
+       "title":"Kiali Windsock Live Dashboard",
+       "uid":"YqrNwi_iz",
+       "version":2
     }
-     }
+ }
