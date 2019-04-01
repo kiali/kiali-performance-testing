@@ -37,20 +37,20 @@ func main() {
 		Header: header,
 	})
 
-	attacker := vegeta.NewAttacker()
-	for res := range attacker.Attack(targeter, rate, duration, pod) {
-		writeVegetaResultInfluxDatabase(res, pod, session, routeEnv)
-	}
-
-}
-
-func writeVegetaResultInfluxDatabase(res *vegeta.Result, pod string, session string, routeEnv string) {
-
 	c, _ := client.NewHTTPClient(client.HTTPConfig{
 		Addr:     os.Getenv("INFLUX_ADDRESS"),
 		Username: os.Getenv("INFLUX_USERNAME"),
 		Password: os.Getenv("INFLUX_PASSWORD"),
 	})
+
+	attacker := vegeta.NewAttacker()
+	for res := range attacker.Attack(targeter, rate, duration, pod) {
+		writeVegetaResultInfluxDatabase(c, res, pod, session, routeEnv)
+	}
+
+}
+
+func writeVegetaResultInfluxDatabase(c client.Client, res *vegeta.Result, pod string, session string, routeEnv string) {
 
 	batchpoint, _ := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  "windsock",
