@@ -23,7 +23,7 @@ deploy-dashboard-ephemeral:
 
 deploy-dashboard-persistent:
 	@echo Deploying dashboard with persistent storage 
-	ansible-playbook ansible/dashboard.yml -e ephemeral=false -vvv
+	ansible-playbook ansible/dashboard.yml -e ephemeral=false  -e storage_size=${STORAGE_SIZE} -e influx_replicas=${INFLUX_REPLICAS}  -vvv
 
 deploy-performance-test:
 	@echo Deploying Performance Test Kiali Windsock

@@ -6,3 +6,4 @@ routes: ""
 influx_username: "admin"
 storage_size: "5Gi"
 influx_password: "{{ ansible_date_time.epoch | to_uuid}}"
+influx_replicas: 1
