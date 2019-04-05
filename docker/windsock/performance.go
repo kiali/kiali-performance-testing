@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
@@ -31,6 +32,9 @@ func main() {
 	header := make(http.Header)
 	header.Add("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(auth)))
 
+	apiRoute := strings.Split(routeEnv, "/api")[1]
+	apiRoute = "/api" + apiRoute
+
 	targeter := vegeta.NewStaticTargeter(vegeta.Target{
 		Method: "GET",
 		URL:    routeEnv,
@@ -45,12 +49,12 @@ func main() {
 
 	attacker := vegeta.NewAttacker()
 	for res := range attacker.Attack(targeter, rate, duration, pod) {
-		writeVegetaResultInfluxDatabase(c, res, pod, session, routeEnv)
+		writeVegetaResultInfluxDatabase(c, res, pod, session, apiRoute)
 	}
 
 }
 
-func writeVegetaResultInfluxDatabase(c client.Client, res *vegeta.Result, pod string, session string, routeEnv string) {
+func writeVegetaResultInfluxDatabase(c client.Client, res *vegeta.Result, pod string, session string, apiRoute string) {
 
 	batchpoint, _ := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  "windsock",
@@ -58,18 +62,18 @@ func writeVegetaResultInfluxDatabase(c client.Client, res *vegeta.Result, pod st
 	})
 
 	tags := map[string]string{
-		"session":         session,
-		"sequential_code": strconv.Itoa(int(res.Seq)),
-		"route":           routeEnv,
-		"response_code":   strconv.Itoa(int(res.Code)),
-		"pod":             pod,
+		"session":       session,
+		"route":         apiRoute,
+		"response_code": strconv.Itoa(int(res.Code)),
+		"pod":           pod,
 	}
 
 	fields := map[string]interface{}{
-		"error":         res.Error,
-		"body":          string(res.Body[:]),
-		"response_size": int64(res.BytesIn),
-		"latency":       int64(res.Latency / time.Millisecond),
+		"error":           res.Error,
+		"sequential_code": strconv.Itoa(int(res.Seq)),
+		"body":            string(res.Body[:]),
+		"response_size":   int64(res.BytesIn),
+		"latency":         int64(res.Latency / time.Millisecond),
 	}
 
 	pt, _ := client.NewPoint("requests", tags, fields, res.Timestamp)
