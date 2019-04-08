@@ -1,0 +1,592 @@
+{
+   "dashboard": {
+       "annotations": {
+           "list": [
+               {
+                   "builtIn": 1,
+                   "datasource": "-- Grafana --",
+                   "enable": true,
+                   "hide": true,
+                   "iconColor": "rgba(0, 211, 255, 1)",
+                   "name": "Annotations \u0026 Alerts",
+                   "type": "dashboard"
+               }
+           ]
+       },
+       "editable": true,
+       "gnetId": null,
+       "graphTooltip": 0,
+       "id": 4,
+       "iteration": 1554826985067,
+       "links": [],
+       "panels": [
+           {
+               "collapsed": true,
+               "gridPos": {
+                   "h": 1,
+                   "w": 24,
+                   "x": 0,
+                   "y": 0
+               },
+               "id": 13,
+               "panels": [
+                   {
+                       "columns": [],
+                       "datasource": "InfluxDB",
+                       "fontSize": "100%",
+                       "gridPos": {
+                           "h": 7,
+                           "w": 24,
+                           "x": 0,
+                           "y": 1
+                       },
+                       "id": 11,
+                       "links": [],
+                       "pageSize": null,
+                       "scroll": true,
+                       "showHeader": true,
+                       "sort": {
+                           "col": 2,
+                           "desc": false
+                       },
+                       "styles": [
+                           {
+                               "alias": "Time",
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "pattern": "Time",
+                               "type": "hidden"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "session",
+                               "thresholds": [],
+                               "type": "string",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "decimals": 2,
+                               "pattern": "/percentile.*/",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "ms"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "minimum",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "ms"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "maximum",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "ms"
+                           }
+                       ],
+                       "targets": [
+                           {
+                               "groupBy": [
+                                   {
+                                       "params": [
+                                           "$__interval"
+                                       ],
+                                       "type": "time"
+                                   },
+                                   {
+                                       "params": [
+                                           "null"
+                                       ],
+                                       "type": "fill"
+                                   }
+                               ],
+                               "orderByTime": "ASC",
+                               "policy": "default",
+                               "query": "SELECT min(\"latency\") as minimum, percentile(\"latency\", 25) as percentile_25,  percentile(\"latency\", 50) as percentile_50, percentile(\"latency\", 75) as percentile_75, percentile(\"latency\", 99) as percentile_99, max(\"latency\") as maximum FROM \"requests\" GROUP BY session, route",
+                               "rawQuery": true,
+                               "refId": "A",
+                               "resultFormat": "table",
+                               "select": [
+                                   [
+                                       {
+                                           "params": [
+                                               "value"
+                                           ],
+                                           "type": "field"
+                                       },
+                                       {
+                                           "params": [],
+                                           "type": "mean"
+                                       }
+                                   ]
+                               ],
+                               "tags": []
+                           }
+                       ],
+                       "title": "Latency",
+                       "transform": "table",
+                       "type": "table"
+                   },
+                   {
+                       "columns": [],
+                       "datasource": "InfluxDB",
+                       "fontSize": "100%",
+                       "gridPos": {
+                           "h": 7,
+                           "w": 24,
+                           "x": 0,
+                           "y": 8
+                       },
+                       "id": 2,
+                       "links": [],
+                       "pageSize": null,
+                       "scroll": true,
+                       "showHeader": true,
+                       "sort": {
+                           "col": 2,
+                           "desc": false
+                       },
+                       "styles": [
+                           {
+                               "alias": "Time",
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "pattern": "Time",
+                               "type": "hidden"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "session",
+                               "thresholds": [],
+                               "type": "string",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "decimals": 2,
+                               "pattern": "/percentile.*/",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "decbytes"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "minimum",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "decbytes"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "maximum",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "decbytes"
+                           }
+                       ],
+                       "targets": [
+                           {
+                               "groupBy": [
+                                   {
+                                       "params": [
+                                           "$__interval"
+                                       ],
+                                       "type": "time"
+                                   },
+                                   {
+                                       "params": [
+                                           "null"
+                                       ],
+                                       "type": "fill"
+                                   }
+                               ],
+                               "orderByTime": "ASC",
+                               "policy": "default",
+                               "query": "SELECT min(\"response_size\") as minimum, percentile(\"response_size\", 25) as percentile_25,  percentile(\"response_size\", 50) as percentile_50, percentile(\"response_size\", 75) as percentile_75, percentile(\"response_size\", 99) as percentile_99, max(\"response_size\") as maximum FROM \"requests\" GROUP BY session, route",
+                               "rawQuery": true,
+                               "refId": "A",
+                               "resultFormat": "table",
+                               "select": [
+                                   [
+                                       {
+                                           "params": [
+                                               "value"
+                                           ],
+                                           "type": "field"
+                                       },
+                                       {
+                                           "params": [],
+                                           "type": "mean"
+                                       }
+                                   ]
+                               ],
+                               "tags": []
+                           }
+                       ],
+                       "title": "Response Size",
+                       "transform": "table",
+                       "type": "table"
+                   },
+                   {
+                       "columns": [],
+                       "datasource": "InfluxDB",
+                       "fontSize": "100%",
+                       "gridPos": {
+                           "h": 4,
+                           "w": 24,
+                           "x": 0,
+                           "y": 15
+                       },
+                       "id": 6,
+                       "links": [],
+                       "pageSize": null,
+                       "scroll": true,
+                       "showHeader": true,
+                       "sort": {
+                           "col": 0,
+                           "desc": true
+                       },
+                       "styles": [
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "Time",
+                               "thresholds": [],
+                               "type": "hidden",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": null,
+                               "mappingType": 1,
+                               "pattern": "count",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "none",
+                               "valueMaps": [
+                                   {
+                                       "text": "",
+                                       "value": ""
+                                   }
+                               ]
+                           }
+                       ],
+                       "targets": [
+                           {
+                               "groupBy": [
+                                   {
+                                       "params": [
+                                           "$__interval"
+                                       ],
+                                       "type": "time"
+                                   },
+                                   {
+                                       "params": [
+                                           "null"
+                                       ],
+                                       "type": "fill"
+                                   }
+                               ],
+                               "hide": false,
+                               "measurement": "requests",
+                               "orderByTime": "ASC",
+                               "policy": "default",
+                               "query": "SELECT count( \"latency\") FROM \"requests\" GROUP BY session, route, response_code",
+                               "rawQuery": true,
+                               "refId": "A",
+                               "resultFormat": "table",
+                               "select": [
+                                   [
+                                       {
+                                           "params": [
+                                               "response_code"
+                                           ],
+                                           "type": "field"
+                                       }
+                                   ]
+                               ],
+                               "tags": []
+                           }
+                       ],
+                       "title": "Requests Count",
+                       "transform": "table",
+                       "type": "table"
+                   }
+               ],
+               "title": "General Session Data",
+               "type": "row"
+           },
+           {
+               "collapsed": true,
+               "gridPos": {
+                   "h": 1,
+                   "w": 24,
+                   "x": 0,
+                   "y": 1
+               },
+               "id": 15,
+               "panels": [
+                   {
+                       "columns": [],
+                       "datasource": "InfluxDB",
+                       "fontSize": "100%",
+                       "gridPos": {
+                           "h": 9,
+                           "w": 24,
+                           "x": 0,
+                           "y": 2
+                       },
+                       "id": 10,
+                       "links": [],
+                       "pageSize": 3,
+                       "scroll": true,
+                       "showHeader": true,
+                       "sort": {
+                           "col": 0,
+                           "desc": true
+                       },
+                       "styles": [
+                           {
+                               "alias": "Time",
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "pattern": "Time",
+                               "type": "hidden"
+                           },
+                           {
+                               "alias": "",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                               "decimals": 2,
+                               "mappingType": 1,
+                               "pattern": "",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "short"
+                           },
+                           {
+                               "alias": "Error",
+                               "colorMode": null,
+                               "colors": [
+                                   "rgba(245, 54, 54, 0.9)",
+                                   "rgba(237, 129, 40, 0.89)",
+                                   "rgba(50, 172, 45, 0.97)"
+                               ],
+                               "decimals": 2,
+                               "pattern": "distinct",
+                               "thresholds": [],
+                               "type": "number",
+                               "unit": "short"
+                           }
+                       ],
+                       "targets": [
+                           {
+                               "groupBy": [
+                                   {
+                                       "params": [
+                                           "$__interval"
+                                       ],
+                                       "type": "time"
+                                   },
+                                   {
+                                       "params": [
+                                           "null"
+                                       ],
+                                       "type": "fill"
+                                   }
+                               ],
+                               "orderByTime": "ASC",
+                               "policy": "default",
+                               "query": "Select distinct(body) from requests Where error != '' group by session, route, response_code",
+                               "rawQuery": true,
+                               "refId": "A",
+                               "resultFormat": "table",
+                               "select": [
+                                   [
+                                       {
+                                           "params": [
+                                               "value"
+                                           ],
+                                           "type": "field"
+                                       },
+                                       {
+                                           "params": [],
+                                           "type": "mean"
+                                       }
+                                   ]
+                               ],
+                               "tags": []
+                           }
+                       ],
+                       "timeFrom": null,
+                       "timeShift": null,
+                       "title": "Errors",
+                       "transform": "table",
+                       "type": "table"
+                   }
+               ],
+               "title": "Errors",
+               "type": "row"
+           }
+       ],
+       "schemaVersion": 18,
+       "style": "dark",
+       "tags": [],
+       "templating": {
+           "list": [
+               {
+                   "datasource": "InfluxDB",
+                   "filters": [],
+                   "hide": 0,
+                   "label": null,
+                   "name": "filters",
+                   "skipUrlSync": false,
+                   "type": "adhoc"
+               }
+           ]
+       },
+       "time": {
+           "from": "now-6h",
+           "to": "now"
+       },
+       "timepicker": {
+           "hidden": true,
+           "refresh_intervals": [
+               "5s"
+           ],
+           "time_options": [
+               "5m",
+               "15m",
+               "1h",
+               "6h",
+               "12h",
+               "24h",
+               "2d",
+               "7d",
+               "30d"
+           ]
+       },
+       "timezone": "",
+       "title": "Kiali Performance Test History",
+       "uid": "6TDW7s6mk",
+       "version": 51
+   }
+}

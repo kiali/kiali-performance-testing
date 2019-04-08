@@ -79,9 +79,13 @@
     method: POST
     user: admin
     password: admin      
-    body: "{{ lookup('template', 'templates/dashboard.json') }}"
+    body: "{{ lookup('template', item.file) }}"
     force_basic_auth: yes
     body_format: json
+  with_items:
+    - {file: "templates/dashboards/live-dashboard.json"}
+    - {file: "templates/dashboards/aggregated-dashboard.json"}
+
 
 - name: Print Grafana and InfluxDb Data
   debug:
