@@ -19,10 +19,10 @@
   k8s:
     state: present
     definition: "{{ lookup('template', 'templates/openshift/pvc.yml') }}"
-      
   with_items: 
     - {"name": "influxdb-data"}
     - {"name": "grafana-data"}
+  when: ephemeral == 'false'
 
 - name: Create Grafana Service
   k8s:
